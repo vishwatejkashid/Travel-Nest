@@ -1,0 +1,57 @@
+<% layout("/layouts/boilerplate") -%>
+
+  <div class="row mt-3">
+    <div class="col-8 offset-2">
+      <h2>Edit the Place</h2>
+      <form method="post" action="/listing/<%= lists._id %>?_method=PUT" novalidate class="needs-validation">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+            <input value="<%=lists.title %>" name="list[title]" type="text" class="form-control" required/>
+            <div class="valid-feedback">Title looks good!</div>
+          <div class="invalid-feedback">Title cannot be empty</div>
+        </div>
+
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="list[description]" class="form-control" required><%=lists.description%></textarea>
+            <div class="valid-feedback">Valid Description</div>
+          <div class="invalid-feedback">Description cannot be empty</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="img" class="form-label">Image Link</label>
+            <input value="<%=lists.img %>" name="list[img]" type="text" class="form-control" />
+            <div class="valid-feedback">Valid image url</div>
+          <div class="invalid-feedback">Image url cannot be empty</div>
+          </div>
+
+          <div class="row">
+          <div class="mb-3 col-md-4">
+            <label for="price" class="form-label">Price</label>
+            <input value="<%=lists.price %>" name="list[price]" type="text" class="form-control" required/>
+            <div class="valid-feedback">Valid Price</div>
+                <div class="invalid-feedback">Price cannot be empty</div>
+          </div>
+          
+          <div class="mb-3 col-md-8">
+            <label for="location" class="form-label">Location</label>
+            <input value="<%=lists.location %>" name="list[location]" type="text" class="form-control" required/>
+            <div class="valid-feedback">Valid Location</div>
+            <div class="invalid-feedback">Location cannot be empty</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
+            <input value="<%=lists.country %>" name="list[country]" type="text" class="form-control" required/>
+            <div class="valid-feedback">Valid Country</div>
+            <div class="invalid-feedback">Country cannot be empty</div>
+          </div>
+ 
+        <button class="btn col-1 btn-dark edit-btn mt-3">Edit</button>
+      </form>
+      <br>
+    </div>
+  </div>
+
+
