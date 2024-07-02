@@ -4,6 +4,7 @@ const wrapAsync = require("../utils/wrapAsync.js")
 const ExpressError = require("../utils/ExpressError.js")
 const { listingSchema } = require("../schema.js");
 const listing = require("../modules/listing.js")
+const {isLoggedIn} = require("../middleware.js") // add were changes available only when logged in  
 
 const validateListing = (req,res,next)=>{
     // console.log(req.body); //checks what body actually contains
@@ -24,7 +25,8 @@ router.get("/",wrapAsync(async(req,res)=>{
 }))
 
 //New Route
-router.get("/new" ,(req,res)=>{
+router.get("/new", isLoggedIn ,  (req,res)=>{
+    
     res.render("listing/new.ejs")
 })
 
@@ -40,7 +42,7 @@ router.get("/:id", wrapAsync(async (req,res)=>{
 }))
 
 //Create Route
-router.post("/", validateListing ,wrapAsync(async(req,res,next)=>{
+router.post("/",isLoggedIn ,validateListing ,wrapAsync(async(req,res,next)=>{
         let newLists = new listing(req.body.list);
         await newLists.save();
         req.flash("success","New listing Created!")
@@ -48,7 +50,7 @@ router.post("/", validateListing ,wrapAsync(async(req,res,next)=>{
 }))
 
 //Edit Route
-router.get("/:id/edit",wrapAsync(async(req,res)=>{
+router.get("/:id/edit",isLoggedIn ,wrapAsync(async(req,res)=>{
     let {id} = req.params;
     let lists = await listing.findById(id);
     if(!lists){
@@ -59,7 +61,7 @@ router.get("/:id/edit",wrapAsync(async(req,res)=>{
 }))
 
 //Update Route
-router.put("/:id", validateListing ,wrapAsync(async (req,res)=>{
+router.put("/:id", isLoggedIn ,validateListing ,wrapAsync(async (req,res)=>{
     let {id} = req.params;
     await listing.findByIdAndUpdate(id, { ...req.body.list });
     req.flash("success","Listing Updated");
@@ -67,7 +69,7 @@ router.put("/:id", validateListing ,wrapAsync(async (req,res)=>{
 }));
 
 //Delete Route
-router.delete("/:id" ,wrapAsync(async (req,res)=>{
+router.delete("/:id",isLoggedIn , wrapAsync(async (req,res)=>{
     let { id } = req.params;
     let deleted_list = await listing.findByIdAndDelete(id)
     req.flash("success","Listing Deleted!");
