@@ -9,7 +9,7 @@ const userSchema = new Schema({
     email : {
         type :String,
         required : true,
-    },
+    } 
 });
 
 userSchema.plugin(passportLocalMongoose); //Automatically implements the username, password, hash and salt field by this

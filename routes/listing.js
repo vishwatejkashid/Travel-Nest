@@ -33,17 +33,19 @@ router.get("/new", isLoggedIn ,  (req,res)=>{
 //Info Route
 router.get("/:id", wrapAsync(async (req,res)=>{
     let {id} = req.params;
-    let list = await listing.findById(id).populate("reviews");
+    let list = await listing.findById(id).populate("reviews").populate("owner");
      if(!list){
         req.flash("error","Listing you requested for does not exist");
         res.redirect("/listing");
      }
+     console.log(list)
     res.render("listing/info.ejs", { list });
 }))
 
 //Create Route
 router.post("/",isLoggedIn ,validateListing ,wrapAsync(async(req,res,next)=>{
         let newLists = new listing(req.body.list);
+
         await newLists.save();
         req.flash("success","New listing Created!")
         res.redirect("/listing");
