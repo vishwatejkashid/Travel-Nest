@@ -3,7 +3,7 @@
     <div class="col-8 offset-2">
         <br>
       <h2>Add New Place</h2>
-      <form method="post" action="/listing" novalidate class="needs-validation">
+      <form method="post" action="/listing" novalidate class="needs-validation" enctype="multipart/form-data">
         <div class="mb-3">
           <label for="title" class="form-label" >Title</label>
           <input
@@ -29,12 +29,13 @@
           <div class="invalid-feedback">Description cannot be empty</div>
         </div>
         <div class="mb-3">
-          <label for="img" class="form-label">Image Link</label>
+          <label for="img" class="form-label">Upload Image</label>
           <input
             placeholder="Enter Image URL/Link"
             name="list[img]"
-            type="text"
-            class="form-control"            
+            type="file"
+            class="form-control"  
+            required          
             />
             <div class="valid-feedback">Valid image url</div>
           <div class="invalid-feedback">Image url cannot be empty</div>

@@ -3,7 +3,7 @@
   <div class="row mt-3">
     <div class="col-8 offset-2">
       <h2>Edit the Place</h2>
-      <form method="post" action="/listing/<%= lists._id %>?_method=PUT" novalidate class="needs-validation">
+      <form method="post" action="/listing/<%= lists._id %>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
             <input value="<%=lists.title %>" name="list[title]" type="text" class="form-control" required/>
@@ -18,11 +18,18 @@
           <div class="invalid-feedback">Description cannot be empty</div>
           </div>
 
-          <div class="mb-3">
-            <label for="img" class="form-label">Image Link</label>
-            <input value="<%=lists.img %>" name="list[img]" type="text" class="form-control" />
-            <div class="valid-feedback">Valid image url</div>
-          <div class="invalid-feedback">Image url cannot be empty</div>
+          <div class=" row mb-3" >
+            <label for="img" class="form-label">Original Image</label>
+            <div class="mb-3 col-3">
+              <img class="img-thumbnail" src="<%= lists.img.url %> "/>
+            </div>
+
+            <div class="mt-5 mb-3 col-9 ">
+              <label for="img" class="form-label">Upload New Image</label>
+              <input value="<%=lists.img.url %>" name="list[img]" type="file" class="form-control" />
+              <div class="valid-feedback">Valid image url</div>
+              <div class="invalid-feedback">Image url cannot be empty</div>
+              </div>
           </div>
 
           <div class="row">

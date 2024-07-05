@@ -1,3 +1,9 @@
+if(process.env.NODE_ENV !="production"){ 
+    //ensure the private info in env does not get used when we deploy the project 
+    require('dotenv').config();
+}
+// console.log(process.env.SECRET);
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
