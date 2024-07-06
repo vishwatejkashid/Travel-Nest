@@ -17,6 +17,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/review.css" >
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <link rel="stylesheet" href="/css/map.css" >
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   </head>
 <body>
     <%- include("../includes/navbar.ejs") %>
@@ -24,8 +30,8 @@
       <%- include("../includes/flash.ejs") %> <%- body %>
     </div>
     <%- include("../includes/footer.ejs") %>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="/js/script.js"></script>
+  
   </body>
 </html>
