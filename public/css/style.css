@@ -98,11 +98,11 @@ body{
     border: none !important ;
 }
 
-/*  Edit Page*/
-/* .img-thumbnail{
+ /* Edit Page*/
+.img-thumbnail{
     height: 30vh !important;
     width: 40vh !important;
-} */
+}
 
 .edit-btn{
     background-color: #fe424d !important;
