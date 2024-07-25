@@ -40,9 +40,7 @@
   .filter-section #filters-wrapper::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
-  .color{
-    color : #e6657f;
-  }
+
   .filter-section {
     display: flex ;
   }
