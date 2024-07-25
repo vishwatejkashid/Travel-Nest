@@ -1,4 +1,5 @@
 <% layout("/layouts/boilerplate") -%>
+
 <div class="row">
     <div class="col-8 offset-2">
         <br>
@@ -78,6 +79,23 @@
           />
           <div class="valid-feedback">Valid Country</div>
           <div class="invalid-feedback">Country cannot be empty</div>
+          <div class="col-md-4">
+            <label for="type" class="form-label">Type</label>
+            <select name="list[type]" class="form-control" required>
+                <option value="">Select a type</option>
+                <option value="Amazing Pools">Amazing Pools</option>
+                <option value="Arctic">Arctic</option>
+                <option value="Hillstations">Hillstations</option>
+                <option value="Mansion">Mansion</option>
+                <option value="Islands">Islands</option>
+                <option value="Worship">Worship</option>
+                <option value="Forts">Forts</option>
+                <option value="Beachfront">Beachfront</option>
+                <option value="Farms">Farms</option>
+                <option value="Rooms">Rooms</option>
+            </select>
+            <div class="invalid-feedback">required</div>
+        </div>
         </div>
         <button class="btn btn-dark add-btn mt-3">ADD</button>
       </form>

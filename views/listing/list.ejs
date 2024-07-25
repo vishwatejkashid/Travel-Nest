@@ -1,141 +1,73 @@
 <% layout('/layouts/boilerplate') -%>
 
-<!-- <h3 class="mx-3 mt-3">All Listings</h3> -->
-
-<!-- <form method="get" action="/listing/new">
-    <button>Add New Place</button>
-</form> -->
-
-<style>
-  /* Scope the styles to the filter-section class */
-  .filter-section {
-    display: flex;
-    justify-content: space-around;
-  }
-  .filter-section #filters-wrapper {
-    overflow-x:auto;
-    white-space: nowrap;
-    padding-left: 1rem;
-    box-sizing: border-box;
-    display: flex;
-  }
-  .filter-section #filters {
-    display: inline-flex;
-    justify-content: space-evenly;
-    align-items: start;
-  }
-  .filter-section .filters {
-    height: 7vh;
-    width: 8vw;
-    min-width: 100px;
-    text-align: center;
-    display: inline-block;
-    opacity: 0.8;
-  }
-  .filter-section .filters i {
-    display: block;
-    font-size: 1.5rem;
-  }
-
-
-  /* Scrollbar styling */
-  .filter-section #filters-wrapper::-webkit-scrollbar {
-    height: 2px;
-  }
-  .filter-section #filters-wrapper::-webkit-scrollbar-thumb {
-    background : #888;
-    border-radius: 2px;
-  }
-  .filter-section #filters-wrapper::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-  .color{
-    color : #e6657f;
-  }
-  .filter-section {
-    display: flex ;
-  }
-  .filters:hover{
-    opacity: 1;
-    cursor: pointer;
-  }
-  .switch{
-    border: 1px solid rgb(85, 81, 81);
-    border-radius: 1rem;
-    padding: 0.8rem;
-    font-size: medium;
-  }
-  .tax-info {
-      display: none;
-  }
-</style>
+<div class="mb-search d-md-none mt-3 mb-3">
+  <form class="d-flex" role="search">
+    <input class="form-control me-2 search-input" type="search" placeholder="Search Destination" aria-label="Search">
+    <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+  </form>
+</div> 
 
 <div class="filter-section mt-3" >
   <div id="filters-wrapper" >
-    <div id="filters" >
-      <div class="filters mb-2">
-        <i class="fa-solid fa-water-ladder color"></i>
-        <h6>Amazing Pools</h6>
+    <div id="filters">
+      <div class="filters mb-2" onclick="filterListings('Amazing Pools')">
+          <i class="fa-solid fa-water-ladder color"></i>
+          <h6>Amazing Pools</h6>
       </div>
-
-      <div class="filters">
-        <i class="fa-solid fa-snowflake color"></i>
-        <h6>Arctic</h6>
+      <div class="filters" onclick="filterListings('Arctic')">
+          <i class="fa-solid fa-snowflake color"></i>
+          <h6>Arctic</h6>
       </div>
-
-      <div class="filters">
-        <i class="fa-solid fa-mountain-city color"></i>
-        <h6>Hillstations</h6>
+      <div class="filters" onclick="filterListings('Hillstations')">
+          <i class="fa-solid fa-mountain-city color"></i>
+          <h6>Hillstations</h6>
       </div>
-
-      <div class="filters">
-        <i class="fa-solid fa-city color"></i>
-        <h6>Mansion</h6>
+      <div class="filters" onclick="filterListings('Mansion')">
+          <i class="fa-solid fa-city color"></i>
+          <h6>Mansion</h6>
       </div>
-
-      <div class="filters">
-        <i class="fa-solid fa-umbrella-beach color"></i>
-        <h6>Islands</h6>
+      <div class="filters" onclick="filterListings('Islands')">
+          <i class="fa-solid fa-umbrella-beach color"></i>
+          <h6>Islands</h6>
       </div>
-
-      <div class="filters">
-        <i class="fa-solid fa-place-of-worship color"></i>
-        <h6>Worship</h6>
+      <div class="filters" onclick="filterListings('Worship')">
+          <i class="fa-solid fa-place-of-worship color"></i>
+          <h6>Worship</h6>
       </div>
-
-      <div class="filters">
-        <i class="fa-brands fa-fort-awesome color"></i>
-        <h6>Forts</h6>
+      <div class="filters" onclick="filterListings('Forts')">
+          <i class="fa-brands fa-fort-awesome color"></i>
+          <h6>Forts</h6>
       </div>
-
-      <div class="filters">
-        <i class="fa-solid fa-house-flood-water color"></i>
-        <h6>Beachfront</h6>
+      <div class="filters" onclick="filterListings('Beachfront')">
+          <i class="fa-solid fa-house-flood-water color"></i>
+          <h6>Beachfront</h6>
       </div>
-
-      <div class="filters">
-        <i class="fa-solid fa-tractor color"></i>
-        <h6>Farms</h6>
+      <div class="filters" onclick="filterListings('Farms')">
+          <i class="fa-solid fa-tractor color"></i>
+          <h6>Farms</h6>
       </div>
-     
-      <div class="filters">
-        <i class="fa-solid fa-person-booth color"></i>
-        <h6>Rooms</h6>
+      <div class="filters" onclick="filterListings('Rooms')">
+          <i class="fa-solid fa-person-booth color"></i>
+          <h6>Rooms</h6>
       </div>
-    </div>
-    <!-- <hr/> -->
+  </div>
+    <hr/>
       </div>
       <!-- <div class="switch">
         <div class="form-check form-switch form-check-reverse">
           <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
           <label class="form-check-label" for="flexSwitchCheckDefault">Total before Tax</label>
-        </div> -->
-    </div> 
+        </div>
+    </div>  -->
 </div>
 
-
 <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-4 mt-3">
-  <% for(list of allListings) { %>
+  <% if (allListings.length === 0) { %>
+    <div class="col">
+        <h3>No listings found.</h3>
+    </div>
+  <% } else { %>
+    <% for(list of allListings) { %>
     <a href="/listing/<%=list._id %>" class="listing-link">
       <div class="card listing-card col">
         <img src="<%= list.img.url %>" class="card-img-top" alt="listing_image" style="height: 20rem;" />
@@ -148,19 +80,25 @@
       </div>
     </a>
   <% } %>
+  <% } %>
+
 </div>
 
 
 <script>
-  let toggle = document.getElementById('flexSwitchCheckDefault');
-  toggle.addEventListener("click",()=>{
-      let taxInfo =document.getElementsByClassName("tax-info")
-      for(info of taxInfo){
-        if(info.style.display !="inline"){
-          info.style.display = "inline";
-        }else{
-          info.style.display = "none";
-        }
-      }
-  })
+    function filterListings(type) {
+      window.location.href = `/listing?type=${type}`;
+  }
+
+  // let toggle = document.getElementById('flexSwitchCheckDefault');
+  // toggle.addEventListener("click",()=>{
+  //     let taxInfo =document.getElementsByClassName("tax-info")
+  //     for(info of taxInfo){
+  //       if(info.style.display !="inline"){
+  //         info.style.display = "inline";
+  //       }else{
+  //         info.style.display = "none";
+  //       }
+  //     }
+  // })
 </script>

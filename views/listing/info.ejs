@@ -1,125 +1,117 @@
 <% layout("/layouts/boilerplate") -%>
 
-    <div class="row mt-3">
-        <div class="col-8 offset-3">
-            <h3><%= list.title %></h3>
-        </div>
-    <div class="card listing-card col-6 offset-3">
-        <img src="<%= list.img.url %>" class="card-img-top show-img" alt="Listing_Image">
+<div class="row mt-3">
+    <div class="col-8 offset-2">
+        <h3><%= list.title %></h3>
+    </div>
+</div>
 
-        <div class="card-body mt-3 ">
-            <p class="card-text"><i>Owned By: <%= list.owner.username %></i> </p>
-            <p class="card-text"><%= list.description %></p>
-            <p class="card-text">&#x20B9;<%= list.price.toLocaleString("en-in") %></p>
-                <p class="card-text"></p><%= list.location %></p>
-                <p class="card-text"></p><%= list.country %></p>
-            </p>
-        </div>
+<div class="card listing-card col-8 offset-2">
+    <img src="<%= list.img.url %>" class="card-img-top show-img" alt="Listing_Image">
+    <div class="card-body mt-3">
+        <p class="card-text"><i>Owned By: <%= list.owner.username %></i></p>
+        <p class="card-text"><%= list.description %></p>
+        <p class="card-text">&#x20B9;<%= list.price.toLocaleString("en-in") %></p>
+        <p class="card-text"><%= list.location %></p>
+        <p class="card-text"><%= list.country %></p>
     </div>
-    </div>
-    <% if(currUser && currUser._id.equals(list.owner._id)) { %>
-    <div class="btns">
-        <a href="/listing/<%=list._id %>/edit" class="btn col-1 btn-outline-dark edit-btn offset-3">Edit</a>
-        <form method="POST" action="/listing/<%= list._id %>?_method=DELETE" >
-            <button class="btn  btn-dark offset-5">Delete</button>
-           
+</div>
+
+<% if(currUser && currUser._id.equals(list.owner._id)) { %>
+<div class="row mt-3">
+    <div class="col-8 offset-2 d-flex justify-content-start ">
+        <a href="/listing/<%=list._id %>/edit" class="btn edit">Edit</a>
+        <form method="POST" action="/listing/<%= list._id %>?_method=DELETE">
+            <button class="btn btn-dark">Delete</button>
         </form>
     </div>
-   
+</div>
+<% } %>
+
+<div class="col-8 offset-2 mb-3">
+    <hr />
+    <% if(currUser) { %>
+    <h4>Leave a Review</h4>
+    <form action="/listing/<%= list._id %>/reviews" method="post" novalidate class="needs-validation">
+        <div class="mt-3">
+            <label for="rating" class="form-label">Rating</label>
+            <fieldset class="starability-fade">
+                <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                <label for="first-rate1" title="Terrible">1 star</label>
+                <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                <label for="first-rate2" title="Not good">2 stars</label>
+                <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                <label for="first-rate3" title="Average">3 stars</label>
+                <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                <label for="first-rate4" title="Very good">4 stars</label>
+                <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                <label for="first-rate5" title="Amazing">5 stars</label>
+            </fieldset>
+        </div>
+        <div>
+            <label for="comment" class="form-label">Comments</label>
+            <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
+            <div class="invalid-feedback">Please submit some comments for review</div>
+        </div>
+        <button class="btn btn-outline-dark mt-3">Submit</button>
+    </form>
+    <hr />
     <% } %>
 
     <div class="row">
-        
-        <div id="map" class="mb-4 col-6 offset-3">
-            
-            <script>
-                var map = L.map('map').setView([51.505, -0.09], 13);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                }).addTo(map);
-            // custom icon using font Awesome
-                var compassIcon = L.divIcon({
-                    html: '<i class="fa-solid fa-location-dot fa-2x" style="color: red;"></i>',
-                    iconSize: [20, 50],
-                    className: 'custom-icon'
-                }); 
-            //geocoding for adding city name
-                function geocodeCity(cityName) {
-                    var url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(cityName);
-                    fetch(url)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.length > 0) {
-                                var lat = data[0].lat;
-                                var lon = data[0].lon;
-                                var marker = L.marker([lat, lon], { icon: compassIcon }).addTo(map);
-                                marker.bindPopup("<b>" + cityName + "</b>", { offset: [0, -10] }).openPopup();
-                                map.setView([lat, lon], 13);
-                            } else {
-                                alert('City not found');
-                            }
-                        })
-                        .catch(error => console.error('Error:', error));
-                }
-                 geocodeCity('<%= list.location %>');
-            </script>    
-        </div>
-        </div>
-    <div class="col-6 offset-3 mb-3" >
-        <hr/>
-        <% if(currUser) { %>
-        <h4>Leave a Review</h4>
-        <form action="/listing/<%= list._id %>/reviews" method="post" novalidate class="needs-validation">
-            <div class=" mt-3">
-                <label for="rating" class="form-label" >Rating</label>
-                <fieldset class="starability-fade">
-                    <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
-                    <input type="radio" id="first-rate1" name="review[rating]" value="1" />
-                    <label for="first-rate1" title="Terrible">1 star</label>
-                    <input type="radio" id="first-rate2" name="review[rating]" value="2" />
-                    <label for="first-rate2" title="Not good">2 stars</label>
-                    <input type="radio" id="first-rate3" name="review[rating]" value="3" />
-                    <label for="first-rate3" title="Average">3 stars</label>
-                    <input type="radio" id="first-rate4" name="review[rating]" value="4" />
-                    <label for="first-rate4" title="Very good">4 stars</label>
-                    <input type="radio" id="first-rate5" name="review[rating]" value="5" />
-                    <label for="first-rate5" title="Amazing">5 stars</label>
-              </fieldset>
+        <p><b>All Reviews</b></p>
+        <% for(review of list.reviews) { %>
+        <div class="card col-md-4 mb-3 review-card">
+            <div class="card-body">
+                <h5 class="card-title"><%= review.author.username %></h5>
+                <p class="card-text"><%= review.comment %></p>
+                <p class="starability-result" data-rating="<%= review.rating %>"></p>
             </div>
-            <div>
-                <label for="comment" class="form-label">Comments</label>
-                <textarea 
-                name="review[comment]"
-                id="comment"
-                cols="30"
-                rows="5"
-                class="form-control"
-                required
-                ></textarea>
-                <div class="invalid-feedback">Please Submit some comments for review</div>
-            </div>
-            <button class="btn btn-outline-dark mt-3">Submit</button>
-        </form>
-        <hr/>
+            <form method="post" action="/listing/<%=list._id %>/reviews/<%= review._id %>?_method=DELETE">
+                <button class="btn btn-sm btn-dark mb-3">Delete</button>
+            </form>
+        </div>
         <% } %>
-
-            <div class="row">
-                <p><b>All Reviews</b></p>
-                <% for(review of list.reviews) { %>
-            
-                <div class="card col-4 mb-3 ms-3" style="max-width: 18rem;">
-                    <div class="card-body mb-2">
-                    <h5 class="card-title pt-2"><%= review.author.username %></h5>
-                      <p class="card-text"><%= review.comment %></p>
-
-                      <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
-                    </div>
-                    <form class="mb-3" method="post" action="/listing/<%=list._id %>/reviews/<%= review._id %>?_method=DELETE">
-                        <button class="btn btn-sm btn-dark mb-3">Delete</button>
-                    </form>
-                </div>
-           
-                <% } %>
-            </div>
     </div>
+</div>
 
+<div class="mt-3 mb-4">
+    <h3 class="text-center"><b>Where you'll be</b></h3>
+    <div id="map" class="mx-auto mt-3" ></div>
+</div>
+
+<script>
+    var map = L.map('map').setView([51.505, -0.09], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Custom icon using Font Awesome
+    var compassIcon = L.divIcon({
+        html: '<i class="fa-solid fa-location-dot fa-2x" style="color: red;"></i>',
+        iconSize: [20, 50],
+        className: 'custom-icon'
+    });
+
+    // Geocoding for adding city name
+    function geocodeCity(cityName) {
+        var url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(cityName);
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    var lat = data[0].lat;
+                    var lon = data[0].lon;
+                    var marker = L.marker([lat, lon], { icon: compassIcon }).addTo(map);
+                    marker.bindPopup("<b>" + cityName + "</b>", { offset: [0, -10] }).openPopup();
+                    map.setView([lat, lon], 13);
+                } else {
+                    alert('City not found');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    geocodeCity('<%= list.location %>');
+</script>

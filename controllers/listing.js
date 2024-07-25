@@ -1,9 +1,35 @@
 const listing = require("../modules/listing");
 
-module.exports.index =async(req,res)=>{
-    let allListings = await listing.find({});
-    res.render("./listing/list.ejs",{ allListings});
-}
+module.exports.searchListings = async (req, res) => {
+    const { q } = req.query;
+    const regex = new RegExp(q, 'i'); // 'i' makes it case insensitive
+    const searchResults = await listing.find({
+        $or: [
+            { title: regex },
+            { description: regex },
+            { location: regex },
+            { country: regex },
+            { type: regex } // Add any other fields you want to search in
+        ]
+    });
+    res.render('./listing/list.ejs', { allListings: searchResults });
+  };
+  
+  
+  module.exports.index = async (req, res) => {
+    const { type } = req.query;
+    let filter = {};
+    if (type) {
+        filter.type = type;
+    }
+    const allListings = await listing.find(filter);
+    res.render("./listing/list.ejs", { allListings });
+  };
+
+// module.exports.index =async(req,res)=>{
+//     let allListings = await listing.find({});
+//     res.render("./listing/list.ejs",{ allListings});
+// }
 
 module.exports.newListing = (req,res)=>{
     res.render("listing/new.ejs")

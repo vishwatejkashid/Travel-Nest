@@ -1,0 +1,61 @@
+/* Scope the styles to the filter-section class */
+.filter-section {
+    display: flex;
+    justify-content: space-around;
+  }
+  .filter-section #filters-wrapper {
+    overflow-x:auto;
+    white-space: nowrap;
+    padding-left: 1rem;
+    box-sizing: border-box;
+    display: flex;
+  }
+  .filter-section #filters {
+    display: inline-flex;
+    justify-content: space-evenly;
+    align-items: start;
+  }
+  .filter-section .filters {
+    height: 7vh;
+    width: 8vw;
+    min-width: 100px;
+    text-align: center;
+    display: inline-block;
+    opacity: 0.8;
+  }
+  .filter-section .filters i {
+    display: block;
+    font-size: 1.5rem;
+  }
+
+
+  /* Scrollbar styling */
+  .filter-section #filters-wrapper::-webkit-scrollbar {
+    height: 2px;
+  }
+  .filter-section #filters-wrapper::-webkit-scrollbar-thumb {
+    background : #888;
+    border-radius: 2px;
+  }
+  .filter-section #filters-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  .color{
+    color : #e6657f;
+  }
+  .filter-section {
+    display: flex ;
+  }
+  .filters:hover{
+    color : #e6657f;
+    cursor: pointer;
+  }
+  .switch{
+    border: 1px solid rgb(85, 81, 81);
+    border-radius: 1rem;
+    padding: 0.8rem;
+    font-size: medium;
+  }
+  .tax-info {
+      display: none;
+  }

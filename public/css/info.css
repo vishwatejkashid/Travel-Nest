@@ -1,0 +1,28 @@
+#map {
+    width: 70%;
+    height: 400px; /* Set a default height */
+}
+@media (max-width: 768px) {
+    #map {
+        height: 50vh; /* Adjust height for smaller screens */
+    }
+}
+.review-card {
+    max-width: 100%;
+    word-break: break-word; /* Ensures long words break to the next line */
+}
+.starability-result {
+    display: inline-block;
+}
+.review-card{
+    margin-right: 1rem ;
+}
+.edit{
+    margin-right: 2rem;
+    color: aliceblue;
+    background-color: #fe424d;
+}
+.edit:hover{
+    color: aliceblue;
+    background-color: #f7606a;
+}

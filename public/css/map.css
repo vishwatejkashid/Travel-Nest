@@ -1,4 +1,10 @@
-#map { 
+/* #map { 
     height: 50vh; 
     width: 50vw; 
+} */
+
+#map{
+    height: 400px;
+    width: 100%;
+    max-width: 800px;
 }

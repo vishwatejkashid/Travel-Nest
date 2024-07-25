@@ -54,7 +54,21 @@
             <div class="valid-feedback">Valid Country</div>
             <div class="invalid-feedback">Country cannot be empty</div>
           </div>
- 
+          <div class="row">
+            <div class="col-md-4">
+                <label for="type" class="form-label">Category</label>
+                <select name="list[type]" class="form-control" required>
+                    <option value="">Select a category</option>
+                    <option value="Amazingpools" <%= lists.type === "Amazingpools" ? "selected" : "" %>>Amazing Pools</option>
+                    <option value="Arctic" <%= lists.type === "Arctic" ? "selected" : "" %>>Arctic</option>
+                    <option value="Hillstations" <%= lists.type === "Hillstations" ? "selected" : "" %>>Hillstations</option>
+                    <option value="Mansion" <%= lists.type === "Mansion" ? "selected" : "" %>>Mansion</option>
+                    <option value="Islands" <%= lists.type === "Islands" ? "selected" : "" %>>Islands</option>
+                    <!-- Add more options as needed -->
+                </select>
+                <div class="invalid-feedback">required</div>
+            </div>
+        </div>
         <button class="btn col-1 btn-dark edit-btn mt-3">Edit</button>
       </form>
       <br>
